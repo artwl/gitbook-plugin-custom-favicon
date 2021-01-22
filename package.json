@@ -1,5 +1,5 @@
 {
-  "name": "gitbook-plugin-custom-favicon",
+  "name": "gitbook-plugin-custom-fav",
   "version": "1.0.0",
   "description": "replaces the gitbook favicon with your own",
   "main": "index.js",
