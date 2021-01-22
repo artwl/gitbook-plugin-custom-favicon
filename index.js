@@ -7,12 +7,16 @@ module.exports = {
 	hooks: {
 
 		"finish" : function () {
-			var pathFile = this.options.pluginsConfig && this.options.pluginsConfig.favicon;
+			var pathFile = this.config.get('pluginsConfig')['favicon'];
 			var favicon = path.join(process.cwd(), pathFile);
 			var gitbookFaviconPath = path.join(process.cwd(), '_book', 'gitbook', 'images', 'favicon.ico');
-			if (pathFile && fs.existsSync(pathFile) && fs.existsSync(gitbookFaviconPath)){
-				fs.unlinkSync(gitbookFaviconPath);
-				fs.createReadStream(favicon).pipe(fs.createWriteStream(gitbookFaviconPath));
+			console.log(pathFile, favicon, gitbookFaviconPath);
+			if (fs.existsSync(favicon) && fs.existsSync(gitbookFaviconPath)) {
+				fs.copyFile(favicon, gitbookFaviconPath, (err) => {
+					if (err) throw err;
+				});
+			} else {
+				console.error('custom favicon not exist!');
 			}
 		}
 	},
